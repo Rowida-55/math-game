@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مغامرة أبطال الضرب</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2b2350;--card:#fff;--p:#7c3aed;--y:#ffc93c;--g:#22c55e;--r:#ef4444;--b:#38bdf8;--o:#fb923c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:'Cairo',Tahoma,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#8be0ff 0%,#c9f0ff 55%,#a7f3a0 100%);background-attachment:fixed;overflow-x:hidden}
+#app{max-width:760px;margin:0 auto;padding:14px;min-height:100vh}
+.screen{display:none;animation:pop .4s}
+.screen.on{display:block}
+@keyframes pop{from{opacity:0;transform:scale(.92) translateY(14px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border-radius:28px;padding:22px;box-shadow:0 8px 0 rgba(43,35,80,.15);border:4px solid #fff;margin:10px 0}
+h1{font-size:clamp(2rem,8vw,3.2rem);margin:6px 0;color:var(--p);text-shadow:3px 3px 0 var(--y);font-weight:900}
+h2{margin:6px 0;font-weight:900}
+.c{text-align:center}
+.btn{font-family:inherit;font-weight:900;font-size:1.5rem;border:0;border-radius:22px;padding:14px 30px;cursor:pointer;color:#fff;background:var(--g);box-shadow:0 7px 0 #15803d;margin:8px 4px;transition:transform .1s}
+.btn:active{transform:translateY(5px);box-shadow:0 2px 0 #15803d}
+.btn.o{background:var(--o);box-shadow:0 7px 0 #c2410c}
+.btn.p{background:var(--p);box-shadow:0 7px 0 #5b21b6}
+.btn.s{font-size:1.1rem;padding:9px 18px}
+.hero{font-size:5rem;line-height:1.1;display:flex;justify-content:center;gap:6px;align-items:center}
+.hero span{display:inline-block;animation:bob 1.6s ease-in-out infinite}
+.hero span:nth-child(2){animation-delay:.3s}.hero span:nth-child(3){animation-delay:.6s}
+@keyframes bob{50%{transform:translateY(-14px) rotate(6deg)}}
+.floaters{font-size:2rem;font-weight:900;color:var(--p);letter-spacing:10px;direction:ltr}
+input[type=text],input[type=tel]{font-family:inherit;font-size:1.8rem;font-weight:800;text-align:center;border:4px solid var(--b);border-radius:18px;padding:12px;width:100%;max-width:340px;color:var(--ink);background:#fff;outline:none}
+input:focus{border-color:var(--p)}
+ul.rules{list-style:none;padding:0;font-size:1.25rem;font-weight:700;margin:0}
+ul.rules li{background:#f5f0ff;border-radius:16px;padding:10px 14px;margin:8px 0}
+.top{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:22px;padding:8px 14px;font-weight:900;font-size:1.15rem;box-shadow:0 5px 0 rgba(43,35,80,.15);gap:6px;flex-wrap:wrap}
+.top .nm{color:var(--p)}
+.bar{height:16px;background:#e5e7eb;border-radius:10px;overflow:hidden;margin:10px 0}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--y),var(--o));transition:width .5s}
+.eq{direction:ltr;unicode-bidi:isolate;display:inline-block;font-size:2.4rem;font-weight:900;color:var(--p);margin:8px 0}
+.q{font-size:1.5rem;font-weight:800;line-height:1.7}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:14px}
+.opt{font-family:inherit;font-size:1.8rem;font-weight:900;padding:16px;border-radius:20px;border:4px solid var(--b);background:#e0f7ff;color:var(--ink);cursor:pointer;box-shadow:0 6px 0 #0ea5e9;direction:ltr}
+.opt:active{transform:translateY(4px);box-shadow:0 2px 0 #0ea5e9}
+.opt.bad{background:#fee2e2;border-color:var(--r);box-shadow:0 6px 0 #b91c1c;animation:shake .4s}
+.opt.good{background:#dcfce7;border-color:var(--g);box-shadow:0 6px 0 #15803d}
+@keyframes shake{25%{transform:translateX(-9px)}75%{transform:translateX(9px)}}
+.fb{margin-top:14px;border-radius:20px;padding:12px 16px;font-size:1.3rem;font-weight:800;display:none}
+.fb.ok{display:block;background:#dcfce7;color:#14532d}
+.fb.no{display:block;background:#fff1d6;color:#7c2d12}
+.why{font-size:1.1rem;font-weight:700;margin-top:6px}
+.badge{display:inline-flex;flex-direction:column;align-items:center;width:112px;margin:6px;padding:10px 4px;border-radius:20px;background:#f5f0ff;font-weight:800;font-size:.95rem}
+.badge b{font-size:3rem;line-height:1.1}
+.badge.lock{filter:grayscale(1);opacity:.45}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.stat{background:#fff7d6;border-radius:18px;padding:10px;text-align:center;font-weight:800}
+.stat b{display:block;font-size:2rem;color:var(--o)}
+table{width:100%;border-collapse:collapse;font-weight:700;font-size:1.05rem}
+th,td{padding:8px 6px;text-align:center;border-bottom:2px solid #eee}
+th{background:var(--p);color:#fff}
+tr.me td{background:#fff3b0;font-weight:900}
+.ov{position:fixed;inset:0;background:rgba(43,35,80,.75);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.ov.on{display:flex}
+.ov .card{max-width:420px;text-align:center;animation:pop .5s}
+.big{font-size:7rem;line-height:1;animation:spin 1.2s ease-out}
+@keyframes spin{from{transform:scale(0) rotate(-360deg)}to{transform:none}}
+.cf{position:fixed;top:-40px;font-size:1.8rem;z-index:99;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(112vh) rotate(540deg)}}
+.stars{font-size:1.5rem;letter-spacing:2px}
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#bg svg{width:100%;height:100%;display:block}
+#app{position:relative;z-index:1}
+.cl{animation:drift 40s linear infinite alternate}.cl.b{animation-duration:55s}
+@keyframes drift{from{transform:translateX(-60px)}to{transform:translateX(120px)}}
+.sun{transform-origin:150px 120px;animation:rot 30s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+.lvgrid{display:grid;gap:14px;margin-top:12px}
+.lvc{font-family:inherit;display:flex;align-items:center;gap:14px;text-align:right;width:100%;border:4px solid #fff;border-radius:26px;padding:14px 18px;cursor:pointer;color:#fff;box-shadow:0 8px 0 rgba(43,35,80,.25);background:var(--p)}
+.lvc:nth-child(2){background:var(--o)}.lvc:nth-child(3){background:#0ea5e9}
+.lvc:active{transform:translateY(5px)}
+.lvc b{font-size:3.6rem;line-height:1}
+.lvc span{display:block;font-weight:900;font-size:1.2rem}
+.lvc em{display:block;font-style:normal;font-weight:900;font-size:1.5rem}
+.lvc small{display:block;font-weight:800;font-size:1rem;opacity:.95}
+.lvc.dn{background:#9ca3af;cursor:default;box-shadow:none;border-color:#e5e7eb}
+</style>
+</head>
+<body>
+<div id="bg"><svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+<g class="sun"><circle cx="150" cy="120" r="48" fill="#ffd93d"/><g stroke="#ffd93d" stroke-width="8" stroke-linecap="round"><path d="M150 48v-22M150 192v22M78 120h-22M222 120h22M99 69l-15-15M201 171l15 15M201 69l15-15M99 171l-15 15"/></g></g>
+<g class="cl" fill="#fff" opacity=".95"><ellipse cx="520" cy="110" rx="60" ry="24"/><ellipse cx="560" cy="96" rx="38" ry="26"/><ellipse cx="485" cy="98" rx="32" ry="22"/></g>
+<g class="cl b" fill="#fff" opacity=".9"><ellipse cx="330" cy="200" rx="50" ry="20"/><ellipse cx="362" cy="188" rx="30" ry="22"/><ellipse cx="302" cy="190" rx="26" ry="18"/></g>
+<g font-family="Cairo,Arial,sans-serif" font-weight="900" font-size="44" opacity=".35" fill="#7c3aed"><text x="640" y="230">×</text><text x="60" y="330">٣</text><text x="700" y="360">٥</text><text x="330" y="290" fill="#fb923c">=</text><text x="560" y="300" fill="#fb923c">+</text></g>
+<path d="M0 470C120 390 260 400 400 450S660 410 800 450V600H0Z" fill="#86efac"/>
+<path d="M0 520C160 470 300 500 450 520S680 490 800 510V600H0Z" fill="#4ade80"/>
+<g><rect x="90" y="455" width="12" height="40" fill="#a16207"/><circle cx="96" cy="440" r="34" fill="#16a34a"/><rect x="690" y="470" width="12" height="36" fill="#a16207"/><circle cx="696" cy="455" r="30" fill="#16a34a"/></g>
+<g fill="#f472b6"><circle cx="250" cy="540" r="7"/><circle cx="420" cy="560" r="7"/><circle cx="580" cy="545" r="7"/></g><g fill="#fde047"><circle cx="250" cy="540" r="3"/><circle cx="420" cy="560" r="3"/><circle cx="580" cy="545" r="3"/></g>
+</svg></div>
+<div id="app">
+
+<section class="screen on" id="s-start">
+ <div class="card c">
+  <div class="floaters">2×3 5×4 7×6</div>
+  <h1>مغامرة أبطال الضرب</h1>
+  <div class="hero"><span>🦸‍♂️</span><span>✖️</span><span>🦸‍♀️</span></div>
+  <div style="font-size:1.3rem;font-weight:800;margin:8px">رياضيات – الصف الثالث الابتدائي</div>
+  <button class="btn" onclick="go('s-name')">🚀 ابدأ المغامرة</button><br>
+  <button class="btn s p" onclick="showLB('s-start')">🏆 لوحة المتصدرين</button>
+ </div>
+</section>
+
+<section class="screen" id="s-name">
+ <div class="card c">
+  <div class="hero" style="font-size:4.5rem"><span>🦉</span></div>
+  <h2 style="font-size:2rem">أهلًا يا بطل، ما اسمك؟</h2>
+  <input type="text" id="nm" maxlength="20" placeholder="اكتب اسمك هنا" autocomplete="off">
+  <div id="nmErr" style="color:var(--r);font-weight:800;min-height:28px"></div>
+  <button class="btn" onclick="saveName()">▶️ ابدأ اللعب</button>
+ </div>
+</section>
+
+<section class="screen" id="s-rules">
+ <div class="card">
+  <h2 class="c" style="font-size:2rem">📜 تعليمات اللعبة</h2>
+  <ul class="rules">
+   <li>🗺️ تتكون اللعبة من ثلاثة مستويات.</li>
+   <li>❓ أجب عن الأسئلة لتكمل كل مستوى.</li>
+   <li>⭐ تحصل على نجمة عند كل إجابة صحيحة.</li>
+   <li>🎖️ عند إكمال المستوى تحصل على شارة.</li>
+   <li>🏆 تفوز بجوائز كلما تقدمت في اللعبة.</li>
+   <li>💪 إذا أخطأت لا تحزن! سنشجعك لتحاول مرة أخرى.</li>
+  </ul>
+  <div class="c"><button class="btn o" onclick="showLevels()">هيا بنا! 🎮</button></div>
+ </div>
+</section>
+
+<section class="screen" id="s-levels">
+ <div class="card c">
+  <div style="font-weight:900;color:var(--p);font-size:1.2rem" id="lvName"></div>
+  <h2 style="font-size:2rem">🗺️ اختر المستوى الذي تريد أن تبدأ به</h2>
+  <div class="lvgrid" id="lvBox"></div>
+ </div>
+</section>
+
+<section class="screen" id="s-intro">
+ <div class="card c" id="introBox"></div>
+</section>
+
+<section class="screen" id="s-quiz">
+ <div class="top"><span class="nm" id="hName"></span><span id="hLvl"></span><span>⭐ <span id="hStars">0</span></span><span>💎 <span id="hPts">0</span></span></div>
+ <div class="bar"><i id="bar"></i></div>
+ <div class="card">
+  <div id="qNum" style="font-weight:900;color:var(--o)"></div>
+  <div class="q" id="qText"></div>
+  <div class="c" id="qEq"></div>
+  <div id="qIn"></div>
+  <div class="fb" id="fb"></div>
+  <div class="c"><button class="btn o" id="nextBtn" style="display:none" onclick="next()">التالي ⬅️</button></div>
+ </div>
+</section>
+
+<section class="screen" id="s-final">
+ <div class="card c">
+  <div class="hero" style="font-size:6rem"><span>🏆</span></div>
+  <h1 style="font-size:2.2rem" id="fName"></h1>
+  <h2 style="color:var(--g)" id="fMsg"></h2>
+  <div class="stats" id="fStats"></div>
+  <h2>🎖️ الشارات</h2><div id="fBadges"></div>
+  <h2>🎁 الجوائز</h2><div id="fPrizes"></div>
+ </div>
+ <div class="card"><h2 class="c">🏅 لوحة المتصدرين</h2><div id="lbBox1"></div></div>
+ <div class="c"><button class="btn p" onclick="newStudent()">🔄 العب من جديد لطالب آخر</button></div>
+</section>
+
+<section class="screen" id="s-lb">
+ <div class="card"><h2 class="c" style="font-size:2rem">🏅 لوحة المتصدرين</h2><div id="lbBox2"></div></div>
+ <div class="c"><button class="btn" onclick="go(backTo)">رجوع ↩️</button></div>
+</section>
+</div>
+
+<div class="ov" id="ov"><div class="card"><div class="big" id="ovE"></div><h2 id="ovT"></h2><div id="ovS" style="font-weight:700;font-size:1.2rem"></div><button class="btn" id="ovB">متابعة ➡️</button></div></div>
+
+<script>
+const LV=[
+{n:'مغامرة خاصية الإبدال',b:'بطل الإبدال',e:'🔄',hero:'🦸‍♂️',
+ learn:'تغيير ترتيب العددين في الضرب لا يغيّر الناتج.',ex:'3 × 2 = 2 × 3 = 6',
+ qs:[
+ {t:'أكمل: ما العدد الذي يجعل الجملة صحيحة؟',eq:'3 × 2 = 2 × ?',k:'m',o:[2,3,6],a:3,w:'لأن تغيير ترتيب العوامل لا يغيّر الناتج: 3 × 2 = 2 × 3 = 6'},
+ {t:'أكمل الفراغ:',eq:'4 × 5 = 5 × ?',k:'f',a:4,w:'نبدّل مكان العددين فيبقى الناتج 20: 4 × 5 = 5 × 4'},
+ {t:'إذا كان 6 × 7 = 42، فإن 7 × 6 يساوي:',k:'m',o:[36,42,48],a:42,w:'الناتج لا يتغير عند تبديل الترتيب، فـ 7 × 6 = 6 × 7 = 42'},
+ {t:'أي جملة من الجمل الآتية صحيحة؟',k:'m',o:['8 × 3 = 3 × 8','8 × 3 = 3 × 5','8 × 3 = 8 + 3'],a:'8 × 3 = 3 × 8',w:'خاصية الإبدال: نبدّل مكان العاملين فقط، وناتج الاثنين 24'},
+ {t:'إذا كان 9 × 4 = 36، فإن 4 × 9 = ؟',k:'f',a:36,w:'بالإبدال: 4 × 9 = 9 × 4 = 36'}]},
+{n:'مغامرة إضافة 1',b:'بطل الإضافة',e:'➕',hero:'🦹‍♀️',
+ learn:'إذا زاد أحد العاملين 1، نضرب العدد الأصغر ثم نجمع العامل الآخر مرة واحدة.',ex:'5 × 6 = (5 × 5) + 5 = 30',
+ qs:[
+ {t:'أكمل: ما العدد الناقص؟',eq:'5 × 6 = (5 × 5) + ?',k:'m',o:[1,5,6],a:5,w:'6 = 5 + 1، فنضيف 5 مرة أخرى: 25 + 5 = 30'},
+ {t:'أكمل واحسب الناتج:',eq:'4 × 6 = (4 × 5) + 4 = ?',k:'f',a:24,w:'4 × 5 = 20، ثم 20 + 4 = 24'},
+ {t:'أكمل: ما العدد الناقص؟',eq:'3 × 5 = (3 × 4) + ?',k:'m',o:[1,3,5],a:3,w:'5 = 4 + 1، فنضيف 3 مرة أخرى: 12 + 3 = 15'},
+ {t:'أكمل واحسب الناتج:',eq:'7 × 3 = (7 × 2) + 7 = ?',k:'f',a:21,w:'7 × 2 = 14، ثم 14 + 7 = 21'},
+ {t:'ما ناتج 6 × 7 إذا كان 6 × 6 = 36؟',eq:'6 × 7 = (6 × 6) + 6 = ?',k:'m',o:[40,42,44],a:42,w:'36 + 6 = 42'}]},
+{n:'مغامرة طرح 1',b:'بطل الطرح',e:'➖',hero:'🧙‍♂️',
+ learn:'إذا نقص أحد العاملين 1، نضرب العدد الأكبر ثم نطرح العامل الآخر مرة واحدة.',ex:'5 × 4 = (5 × 5) − 5 = 20',
+ qs:[
+ {t:'أكمل: ما العدد الناقص؟',eq:'5 × 4 = (5 × 5) − ?',k:'m',o:[1,4,5],a:5,w:'4 = 5 − 1، فنطرح 5 مرة: 25 − 5 = 20'},
+ {t:'أكمل واحسب الناتج:',eq:'6 × 4 = (6 × 5) − 6 = ?',k:'f',a:24,w:'6 × 5 = 30، ثم 30 − 6 = 24'},
+ {t:'أكمل: ما العدد الناقص؟',eq:'8 × 9 = (8 × 10) − ?',k:'m',o:[1,8,9],a:8,w:'9 = 10 − 1، فنطرح 8 مرة: 80 − 8 = 72'},
+ {t:'أكمل واحسب الناتج:',eq:'7 × 5 = (7 × 6) − 7 = ?',k:'f',a:35,w:'7 × 6 = 42، ثم 42 − 7 = 35'},
+ {t:'ما ناتج 4 × 9؟',eq:'4 × 9 = (4 × 10) − 4 = ?',k:'m',o:[32,36,40],a:36,w:'40 − 4 = 36'}]}
+];
+const $=id=>document.getElementById(id);
+let S=null,backTo='s-start';
+const LBK='abtal_multiplication_lb';
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));$(id).classList.add('on');window.scrollTo(0,0)}
+/* sounds */
+let ac=null;
+function tone(f,d,t,v){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type=t||'sine';o.frequency.value=f;g.gain.value=v||.15;o.connect(g);g.connect(ac.destination);const n=ac.currentTime;g.gain.exponentialRampToValueAtTime(.001,n+d);o.start(n);o.stop(n+d)}catch(e){}}
+function seq(a){a.forEach((f,i)=>setTimeout(()=>tone(f,.25,'triangle'),i*130))}
+const sOk=()=>seq([523,659,784]),sNo=()=>{tone(220,.25,'sawtooth',.1);setTimeout(()=>tone(180,.3,'sawtooth',.1),160)},sWin=()=>seq([523,659,784,1047,784,1047,1319]);
+function confetti(){const e=['🎉','⭐','🎊','✨','🌟','🎈'];for(let i=0;i<36;i++){const s=document.createElement('span');s.className='cf';s.textContent=e[i%e.length];s.style.left=Math.random()*100+'vw';s.style.animationDuration=(2+Math.random()*2.5)+'s';s.style.animationDelay=Math.random()*.6+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),5500)}}
+/* storage */
+function loadLB(){try{return JSON.parse(localStorage.getItem(LBK)||'[]')}catch(e){return[]}}
+function saveLB(a){try{localStorage.setItem(LBK,JSON.stringify(a))}catch(e){}}
+let memLB=[];
+function getLB(){const a=loadLB();return a.length?a:memLB}
+function upsert(rec){let a=getLB();const i=a.findIndex(x=>x.name===rec.name);if(i>=0){if(rec.pts>=a[i].pts)a[i]=rec}else a.push(rec);memLB=a;saveLB(a)}
+function lbHTML(me){const a=getLB().slice().sort((x,y)=>y.pts-x.pts||y.stars-x.stars);if(!a.length)return'<div class="c" style="font-weight:800">لا توجد نتائج بعد. كن أول بطل! 🌟</div>';
+ const m=['🥇','🥈','🥉'];return'<table><tr><th>الترتيب</th><th>الاسم</th><th>⭐</th><th>النقاط</th><th>🎖️</th></tr>'+a.map((r,i)=>`<tr class="${r.name===me?'me':''}"><td>${m[i]||i+1}</td><td>${esc(r.name)}</td><td>${r.stars}</td><td>${r.pts}</td><td>${r.badges}</td></tr>`).join('')+'</table>'}
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function showLB(from){backTo=from;$('lbBox2').innerHTML=lbHTML(S&&S.name);go('s-lb')}
+/* flow */
+function saveName(){const v=$('nm').value.trim();if(!v){$('nmErr').textContent='من فضلك اكتب اسمك يا بطل 😊';return}
+ S={name:v,lvl:0,q:0,stars:0,pts:0,done:[],tries:0};$('nmErr').textContent='';go('s-rules')}
+function startLevel(i){S.lvl=i;S.q=0;const L=LV[i];
+ $('introBox').innerHTML=`<div class="hero" style="font-size:5rem"><span>${L.hero}</span></div><div style="font-weight:900;color:var(--o)">المستوى ${['الأول','الثاني','الثالث'][i]}</div><h1 style="font-size:2rem">${L.e} ${L.n}</h1><div class="q" style="margin:8px 0">${L.learn}</div><div class="eq">${L.ex}</div><br><button class="btn" onclick="showQ()">انطلق! 🚀</button><button class="btn s p" onclick="showLevels()">↩️ اختيار مستوى آخر</button>`;go('s-intro')}
+function showLevels(){$('lvName').textContent='👤 '+S.name+' | ⭐ '+S.stars+' | 💎 '+S.pts;
+ $('lvBox').innerHTML=LV.map((L,i)=>{const d=S.done.includes(i);return `<button class="lvc" ${d?'disabled':''} style="${d?'':''}" onclick="startLevel(${i})"><b>${d?'✅':L.hero}</b><div><span>المستوى ${['الأول','الثاني','الثالث'][i]}</span><em>${L.e} ${L.n}</em><small>${d?'تم إكماله – '+L.b:'اضغط للبدء'}</small></div></button>`}).join('');
+ document.querySelectorAll('#lvBox .lvc').forEach((b,i)=>{if(S.done.includes(i))b.classList.add('dn')});go('s-levels')}
+function hud(){$('hName').textContent='👤 '+S.name;$('hLvl').textContent='المستوى '+(S.lvl+1)+' من 3';$('hStars').textContent=S.stars;$('hPts').textContent=S.pts}
+function showQ(){const L=LV[S.lvl],q=L.qs[S.q];S.tries=0;hud();$('bar').style.width=(S.q/5*100)+'%';
+ $('qNum').textContent=`${L.e} السؤال ${S.q+1} من 5`;$('qText').textContent=q.t;$('qEq').innerHTML=q.eq?`<span class="eq">${q.eq}</span>`:'';
+ $('fb').className='fb';$('fb').innerHTML='';$('nextBtn').style.display='none';
+ if(q.k==='m'){$('qIn').innerHTML='<div class="opts">'+q.o.map((o,i)=>`<button class="opt" data-i="${i}" onclick="pick(${i})">${o}</button>`).join('')+'</div>'}
+ else{$('qIn').innerHTML='<div class="c" style="margin-top:12px"><input type="tel" inputmode="numeric" id="ans" placeholder="؟" style="max-width:160px"><br><button class="btn s" id="chk" onclick="chkFill()">تحقق ✅</button></div>';
+  $('ans').onkeydown=e=>{if(e.key==='Enter')chkFill()};setTimeout(()=>$('ans').focus(),50)}
+ go('s-quiz')}
+function pick(i){const q=LV[S.lvl].qs[S.q],b=document.querySelector(`.opt[data-i="${i}"]`);if(b.disabled)return;
+ if(String(q.o[i])===String(q.a)){document.querySelectorAll('.opt').forEach(x=>x.disabled=true);b.classList.add('good');right()}else{b.classList.add('bad');b.disabled=true;wrong()}}
+function chkFill(){const q=LV[S.lvl].qs[S.q],v=$('ans').value.trim().replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d));if(v==='')return;
+ if(Number(v)===q.a){$('ans').disabled=true;$('chk').style.display='none';right()}else{wrong();$('ans').select()}}
+function right(){const q=LV[S.lvl].qs[S.q];S.stars++;S.pts+=S.tries===0?10:5;hud();sOk();confetti1();
+ $('fb').className='fb ok';$('fb').innerHTML=`🌟 أحسنت يا ${esc(S.name)}! إجابة صحيحة ⭐<div class="why">💡 ${q.w}</div>`;
+ const n=$('nextBtn');n.style.display='inline-block';n.textContent=S.q===4?'إنهاء المستوى 🎖️':'التالي ⬅️'}
+function confetti1(){for(let i=0;i<10;i++){const s=document.createElement('span');s.className='cf';s.textContent='⭐';s.style.left=Math.random()*100+'vw';s.style.animationDuration=(1.5+Math.random())+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),3000)}}
+function wrong(){S.tries++;sNo();const m=['لا بأس، حاول مرة أخرى 💪','قريب جدًا! فكّر من جديد 🤔','أنت قادر عليها يا بطل! جرّب مرة أخرى 🌈'];
+ $('fb').className='fb no';$('fb').textContent=m[(S.tries-1)%3]}
+function next(){if(S.q<4){S.q++;showQ();return}
+ const L=LV[S.lvl];S.done.push(S.lvl);$('bar').style.width='100%';sWin();confetti();
+ saveProgress();
+ ov(L.e,'🎖️ شارة '+L.b+'!','مبروك يا '+S.name+'، أكملت «'+L.n+'»',S.done.length===3?'عرض إنجازاتي 🏆':'اختيار المستوى التالي ➡️',()=>{ovClose();S.done.length===3?finish():showLevels()})}
+function ov(e,t,s,b,f){$('ovE').textContent=e;$('ovT').textContent=t;$('ovS').textContent=s;$('ovB').textContent=b;$('ovB').onclick=f;$('ov').classList.add('on')}
+function ovClose(){$('ov').classList.remove('on')}
+function saveProgress(){upsert({name:S.name,stars:S.stars,pts:S.pts,badges:S.done.length,levels:S.done.length,time:Date.now()})}
+function finish(){saveProgress();sWin();confetti();setTimeout(confetti,1800);
+ const pct=Math.round(S.done.length/3*100);
+ $('fName').textContent='👤 '+S.name;$('fMsg').textContent='مبروك يا بطل! لقد أصبحت بطل الضرب 🎉';
+ $('fStats').innerHTML=`<div class="stat"><b>${S.stars}</b>⭐ النجوم</div><div class="stat"><b>${S.pts}</b>💎 النقاط</div><div class="stat"><b>${S.done.length} / 3</b>المستويات</div><div class="stat"><b>${pct}%</b>نسبة التقدم</div>`;
+ $('fBadges').innerHTML=LV.map((L,i)=>`<div class="badge ${S.done.includes(i)?'':'lock'}"><b>${L.e}</b>${L.b}</div>`).join('');
+ const all=S.done.length===3,full=S.stars===15;
+ $('fPrizes').innerHTML=`<div class="badge ${all?'':'lock'}"><b>🏆</b>كأس بطل الضرب</div><div class="badge ${full?'':'lock'}"><b>🌟</b>نجم لامع (15 نجمة)</div><div class="badge ${S.pts>=120?'':'lock'}"><b>👑</b>تاج التميّز (120 نقطة)</div>`;
+ $('lbBox1').innerHTML=lbHTML(S.name);go('s-final')}
+function newStudent(){S=null;$('nm').value='';go('s-name')}
+</script>
+</body>
+</html>
